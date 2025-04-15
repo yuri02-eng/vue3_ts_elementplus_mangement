@@ -2,11 +2,10 @@ import './assets/main.css'
 import { createApp } from 'vue'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
-import Applayout from './layouts/Applayout.vue'
+import App from './App.vue'
 import router   from "@/stores/indes.js";
 try {
-    const app = createApp(Applayout)
-    
+    const app = createApp(App)
     app.use(ElementPlus)
     app.use(router)
     app.mount('#app')
