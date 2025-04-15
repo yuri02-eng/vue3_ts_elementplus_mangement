@@ -1,4 +1,14 @@
 # vue3-admin
+# 指南
+要学会看官方文档
+
+[pinia官方文档](https://pinia.vuejs.org/zh/)
+
+[axios官方文档](https://axios-http.com/zh/docs/intro)
+
+[vue3](https://cn.vuejs.org/)
+
+[vue-router](https://router.vuejs.org/zh/guide/)
 
 This template should help get you started developing with Vue 3 in Vite.for vue3
 

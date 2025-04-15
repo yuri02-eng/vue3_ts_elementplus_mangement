@@ -1,5 +1,5 @@
 See [vue-router](https://router.vuejs.org/zh/guide/)
-以下是一份更加详细的 Vue Router 使用文档，涵盖了从基础到高级的使用场景，并提供了丰富的代码示例和最佳实践建议。
+以下是一份更加详细的 Vue Router 使用文档，涵盖了从基础到高级使用场景，并提供了丰富的代码示例和最佳实践建议。
 
 # Vue Router 详细使用文档
 
