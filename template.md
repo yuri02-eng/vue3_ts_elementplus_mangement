@@ -66,7 +66,8 @@
 • **特点**:
 • 响应式企业官网模板。
 • 支持多级菜单、SEO 优化、动画效果。
-
+### 8. **CSS Guide**
+https://github.com/tsejx/css-guidebook?tab=readme-ov-file
 ---
 
 ### 如何快速使用？
