@@ -23,6 +23,8 @@ https://cssarrowplease.com/
   position: relative;     /* 为伪元素定位提供基准 */
 }
 ```
+
+
 此时效果如下：  
 ![](https://s3-gz01.didistatic.com/n9e-pub/image/doraemon/20240919120721.png)
 
@@ -94,6 +96,37 @@ https://cssarrowplease.com/
   margin-left: -36px;    /* 向左回退 36px（边框宽度） */
 }
 ```
+定位方式解析：
+在 CSS 中，当父元素（`.arrow_box`）设置 `position: relative` 时，它的核心作用是 **为子元素的绝对定位（`position: absolute`）提供一个定位基准**。以下是详细解释：
+
+---
+
+#### **创建定位上下文（Positioning Context）**
+• **默认情况**：如果一个元素的 `position` 是 `static`（默认值），它 **不会创建定位上下文**。
+• **关键作用**：当父元素设置 `position: relative` 后，它会成为子元素（如伪元素 `::before`/`::after`）的 **定位基准**，子元素的 `top`/`left`/`right`/`bottom` 会相对于父元素的边界进行定位。
+#### **不破坏父元素的原始布局**
+• `position: relative` 的独特之处在于：
+• **保持文档流**：父元素仍占据原始位置和空间（不像 `absolute` 或 `fixed` 会脱离文档流）。
+• **无需偏移**：即使不设置 `top`/`left` 等偏移属性，父元素的位置也不会改变。
+```css
+.arrow_box {
+    width: 200px;
+    height: 100px;
+    background: #88b7d5;    /* 背景色 */
+    border: 4px solid #c2e1f5; /* 边框色 */
+    position: relative;     /* 为伪元素定位提供基准 */
+}
+.arrow_box::before {
+    content: "";           /* 伪元素必须设置 content */
+    position: absolute;    /* 绝对定位 */
+    bottom: 100%;          /* 定位到容器顶部外侧 */
+    left: 50%;             /* 水平居中起始点 */
+    border: 36px solid transparent;  /* 透明边框 */
+    border-bottom-color: #c2e1f5;    /* 底部边框色（与外框同色） */
+    margin-left: -36px;    /* 向左回退 36px（边框宽度） */
+}
+```
+
 
 这里的定位方式absolute 以及bottom left的定位初始状态是与arrow_box元素的内容的左下点重叠，然后bottom就是距离arrow_box的下方100%的距离（放在这个元素上方）,left就是这个伪元素的左侧距离arrow_box的左侧50%，这个时候会超过中心的位置，通过margin-left: -36px; 将伪元素向左移动自身宽度的一半（`36px`），实现水平居中。
 
