@@ -1,4 +1,12 @@
 好的！以下是对 CSS 基础知识的 **超详细扩展介绍**，涵盖核心概念、语法细节和基础实践，适合零基础学习或系统复习。
+调试CSS
+https://developer.mozilla.org/zh-CN/docs/Learn_web_development/Core/Styling_basics/Debugging_CSS
+
+https://firefox-source-docs.mozilla.org/devtools-user/index.html
+
+https://firefox-source-docs.mozilla.org/devtools-user/page_inspector/ui_tour/index.html#layout_view
+
+https://github.com/mdn/css-examples/blob/main/learn/solutions.md#the-box-model
 
 ---
 
