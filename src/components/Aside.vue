@@ -20,7 +20,7 @@
     <div class="container">
       <!-- 页面内容 -->
       <el-row class="tac">
-      <el-col :span="12">
+      <el-col :span="24">
 
       <el-menu
           default-active="/home"
@@ -53,5 +53,14 @@
 <style scoped>
     .container {
       background-color: white;
+    }
+    .el-menu-item {
+      border:1px solid black;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      margin-left: 0;
+    }
+    .el-menu{
+
     }
 </style>

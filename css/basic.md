@@ -277,4 +277,219 @@ img {
 
 ---
 
-通过以上内容，你可以掌握 CSS 的核心基础。建议边学边写代码，用实际案例巩固知识！如果有具体问题，欢迎随时提问。
+# **字体样式 （常用于设置展示文本的属性例如p h1 h2 span标签等信息）**
+## 一、基本文本和字体样式
+### 1.1 常用文本属性
+```css
+/* 字体设置 */
+font-family: "Arial", sans-serif; /* 字体栈 */
+font-size: 16px; /* 字号 */
+font-weight: bold; /* 字重 */
+font-style: italic; /* 斜体 */
+
+/* 文本装饰 */
+text-decoration: underline; /* 下划线 */
+text-transform: uppercase; /* 文本转换 */
+letter-spacing: 1px; /* 字间距 */
+line-height: 1.5; /* 行高 */
+```
+
+### 1.2 颜色与对齐
+```css
+color: #333; /* 文本颜色 */
+text-align: center; /* 对齐方式 */
+text-indent: 2em; /* 首行缩进 */
+```
+
+### 1.3 高级特性
+```css
+/* 文字阴影 */
+text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+
+/* 文字溢出处理 */
+white-space: nowrap; 
+overflow: hidden;
+text-overflow: ellipsis;
+```
+
+---
+
+## 二、为列表添加样式
+
+### 2.1 列表标记类型
+```css
+ul {
+  list-style-type: square; /* 实心方块 */
+  /* 其他选项：disc(默认实心圆), circle(空心圆), none(无标记) */
+}
+
+ol {
+  list-style-type: upper-roman; /* 大写罗马数字 */
+  /* 其他选项：decimal(数字), lower-alpha(小写字母) */
+}
+```
+
+### 2.2 自定义列表标记
+```css
+ul.custom {
+  list-style-image: url('bullet.png'); /* 使用图片作为标记 */
+  padding-left: 20px; /* 调整缩进 */
+}
+```
+
+### 2.3 列表布局技巧
+```css
+/* 水平导航菜单 */
+ul.horizontal {
+  display: flex;
+  list-style: none;
+  gap: 15px;
+}
+```
+
+---
+
+## 三、样式化链接
+
+### 3.1 链接状态伪类
+```css
+a:link { color: blue; } /* 未访问 */
+a:visited { color: purple; } /* 已访问 */
+a:hover { 
+  color: red;
+  text-decoration: underline; 
+} /* 悬停 */
+a:active { color: orange; } /* 点击时 */
+a:focus { outline: 2px solid #4CAF50; } /* 键盘焦点 */
+```
+
+### 3.2 按钮式链接
+```css
+a.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+a.button:hover {
+  background: #45a049;
+}
+```
+
+### 3.3 禁用链接样式
+```css
+a.disabled {
+  color: gray !important;
+  cursor: not-allowed;
+  text-decoration: none;
+  pointer-events: none;
+}
+```
+
+---
+
+## 四、Web字体技术
+
+### 4.1 使用系统字体栈
+```css
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+```
+
+### 4.2 引入Google Fonts
+```html
+<!-- 在<head>中添加 -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+```
+```css
+body {
+  font-family: 'Roboto', sans-serif;
+}
+```
+
+### 4.3 自定义字体文件
+```css
+@font-face {
+  font-family: 'MyCustomFont';
+  src: url('fonts/myfont.woff2') format('woff2'),
+       url('fonts/myfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* 优化加载体验 */
+}
+```
+
+### 4.4 字体性能优化
+```css
+/* 预加载关键字体 */
+<link rel="preload" href="fonts/myfont.woff2" as="font" type="font/woff2" crossorigin>
+```
+
+---
+
+## 五、综合实战案例
+
+### 5.1 文本样式组合
+```css
+.article-title {
+  font: 700 2rem/1.2 'Georgia', serif;
+  color: #222;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  letter-spacing: -0.5px;
+  margin-bottom: 1em;
+}
+```
+
+### 5.2 响应式排版
+```css
+html {
+  font-size: 16px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1200px) {
+  html {
+    font-size: 20px;
+  }
+}
+```
+
+---
+
+## 六、最佳实践建议
+
+1. **字体选择原则**：
+   - 正文优先选择无衬线字体（如Arial、Helvetica）
+   - 标题可考虑衬线字体（如Georgia、Times）
+   - 中文字体需明确指定 fallback
+
+2. **性能优化**：
+   - 限制自定义字体数量（通常不超过3种）
+   - 使用`font-display: swap`避免布局偏移
+   - 考虑可变字体（Variable Fonts）技术
+
+3. **可访问性**：
+   - 确保文本与背景的对比度至少达到4.5:1
+   - 避免纯CSS隐藏文本（屏幕阅读器无法识别）
+   - 为图标字体提供ARIA标签
+
+---
+
+## 附录：学习资源
+
+1. [MDN CSS文本样式](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Styling_text)
+2. [Google Fonts](https://fonts.google.com/)
+3. [CSS Font Stack](https://www.cssfontstack.com/)
+4. [Type Scale工具](https://type-scale.com/)
+
+本教学文档可直接用于课堂教学或自学参考，建议配合实际编码练习巩固知识。
