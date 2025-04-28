@@ -5,8 +5,8 @@ import { ElCarousel, ElCarouselItem } from 'element-plus'
 // 示例数据（推荐使用真实数据源）
 const carouselItems = [
   { id: 1, img: new URL('@/assets/img/1.jpg', import.meta.url).href},
-  { id: 2, img: new URL('@/assets/img/1.jpg', import.meta.url).href},
-  { id: 3, img: new URL('@/assets/img/1.jpg', import.meta.url).href }
+  { id: 2, img: new URL('@/assets/img/2.jpg', import.meta.url).href},
+  { id: 3, img: new URL('@/assets/img/3.jpg', import.meta.url).href }
 ]
 </script>
 
@@ -23,7 +23,7 @@ const carouselItems = [
         <!-- 使用数据驱动循环 -->
         <el-carousel-item
             v-for="item in carouselItems"
-            :key="hel"
+            :key="item.id"
         >
           <div class="carousel-item">
             <!-- 使用动态路径和错误处理 -->

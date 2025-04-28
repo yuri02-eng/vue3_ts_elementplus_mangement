@@ -1,6 +1,7 @@
-import { createRouter, createWebHistory } from "vue-router"
+import {createRouter, createWebHistory} from "vue-router"
 import Login from "@/components/Login.vue"
 import Applayout from "@/layouts/Applayout.vue";
+import useLoginStore from "@/stores/login.js";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -12,13 +13,10 @@ const router = createRouter({
         },
         // 主布局路由（包含侧边栏）
         {
-            path: "/",
+            path: "/home",
             component: Applayout,
+            name: "main",
             children: [
-                {
-                    path: "",
-                    redirect: "home"
-                },
                 {
                     path: "home",
                     component: () => import("@/components/router/home.vue")
@@ -34,10 +32,50 @@ const router = createRouter({
                 {
                     path: "classes",
                     component: () => import("@/components/router/classes.vue")
-                }
+                },
             ]
+        },
+        {
+            path: "/",
+            redirect: "/home"
         }
     ]
 })
 
+
+router.beforeEach((to, from, next) => {
+    // console.log('[路由守卫] 触发导航守卫', {
+    //     from: from.path,
+    //     to: to.path,
+    //     fullPath: to.fullPath
+    // })
+
+    if (to.path === "/login") {
+        // console.log('[路由守卫] 目标路径是登录页，直接放行')
+        next()
+    } else {
+        // console.log('[路由守卫] 目标路径需要验证权限:', to.path)
+
+        const token = localStorage.getItem("token")
+        // // console.log('[路由守卫] 检查本地token:', token ? '存在' : '不存在', {
+        //     token: token ? `${token.substring(0, 6)}...` : null // 部分显示防止泄露
+        // })
+
+        if (token) {
+            const loginStore = useLoginStore();
+            if (!loginStore.isRoutesLoaded) {
+                loginStore.loadLocalCacheAction(router);
+                loginStore.isRoutesLoaded = true;
+                next({ ...to, replace: true });
+            } else {
+                next();
+            }
+        } else {
+            // console.warn('[路由守卫] 无有效token，重定向到登录页', {
+            //     attemptedPath: to.path
+            // })
+            next("/login")
+        }
+    }
+})
 export default router
