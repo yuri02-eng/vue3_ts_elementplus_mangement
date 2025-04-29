@@ -16,6 +16,8 @@ const isCollapse=ref(false)
 function handFoldChange(isFold: boolean){
   isCollapse.value=isFold
 }
+import { ElConfigProvider } from 'element-plus'
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
 </script>
 <template>
   <el-container>
@@ -28,7 +30,9 @@ function handFoldChange(isFold: boolean){
       </el-aside>
       <el-container>
         <el-main>
+          <el-config-provider :locale="zhCn">
           <router-view></router-view>
+          </el-config-provider>
         </el-main>
         <el-footer>
           <Footer/>
