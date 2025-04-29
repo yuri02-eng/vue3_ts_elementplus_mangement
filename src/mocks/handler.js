@@ -1,6 +1,7 @@
 // src/mocks/handlers.js
 import {http, HttpResponse} from 'msw'
-
+// 读取 mock_users.json 文件（假设文件与 handlers.js 同目录）
+import mockUsers from './mock_users.json';
 export const handlers = [
     // 用户登录接口
     http.post('/api/login', async ({request}) => {
@@ -141,34 +142,85 @@ export const handlers = [
         })
     }),
 
-    // 获取用户列表接口
-    http.post('/api/users/list', async ({request}) => {
-        const {page = 1, limit = 10} = await request.json()
+    http.post('/api/users/list', async ({ request }) => {
+        try {
+            // 获取原始请求参数对象
+            const rawParams = await request.json();
+            const {
+                page = 1,
+                limit = 10,
+                username,   // 可能为 undefined
+                email,
+                role,
+                status,
+                startTime,
+                endTime
+            } = rawParams;
 
-        // 模拟用户数据
-        const users = Array.from({length: 100}, (_, index) => ({
-            id: index + 1,
-            username: `user${index + 1}`,
-            email: `user${index + 1}@example.com`,
-            role: {
-                id: (index % 3) + 1,
-                name: ['普通用户', '编辑', '管理员'][index % 3]
-            },
-            department: {
-                id: Math.floor(index / 10) + 1,
-                name: `部门${Math.floor(index / 10) + 1}`
+            // 参数基础校验
+            if (!Number.isInteger(page) || page < 1 ||
+                !Number.isInteger(limit) || limit < 1) {
+                return HttpResponse.json(
+                    { code: 400, message: '参数错误：page 和 limit 必须为正整数' },
+                    { status: 400 }
+                );
             }
-        })).slice((page - 1) * limit, page * limit)
 
-        return HttpResponse.json({
-            code: 200,
-            data: {
-                total: 100,
-                list: users,
-                page,
-                limit
-            }
-        })
+            // 数据过滤逻辑
+            let filteredUsers = mockUsers.filter(user => {
+                // 用户名过滤（精确包含查询）
+                if ('username' in rawParams && !user.username.includes(username)) {
+                    return false;
+                }
+
+                // 邮箱过滤（精确包含查询）
+                if ('email' in rawParams && !user.email.includes(email)) {
+                    return false;
+                }
+
+                // 角色精确匹配（允许空角色查询）
+                if ('role' in rawParams && user.role !== role) {
+                    return false;
+                }
+
+                // 状态匹配（允许0值）
+                if ('status' in rawParams && user.status !== Number(status)) {
+                    return false;
+                }
+
+                // 时间范围过滤（需要同时存在起止时间）
+                if ('startTime' in rawParams && 'endTime' in rawParams) {
+                    const userTime = new Date(user.createTime).getTime();
+                    const start = new Date(startTime).getTime();
+                    const end = new Date(endTime).getTime();
+                    if (!(userTime >= start && userTime <= end)) {
+                        return false;
+                    }
+                }
+
+                return true;
+            });
+
+            // 分页计算
+            const offset = (page - 1) * limit;
+            const paginatedList = filteredUsers.slice(offset, offset + limit);
+
+            return HttpResponse.json({
+                code: 200,
+                data: {
+                    list: paginatedList,
+                    total: filteredUsers.length,
+                    page: page,
+                    limit: limit
+                }
+            });
+
+        } catch (error) {
+            return HttpResponse.json(
+                { code: 500, message: `服务器内部错误: ${error.message}` },
+                { status: 500 }
+            );
+        }
     }),
 
     // 获取单个用户接口

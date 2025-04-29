@@ -1,14 +1,27 @@
 <script setup lang="ts">
 import user_search from "./user-cpns/user_search.vue"
+import user_content from './user-cpns/user_content.vue'
+import UserModal from './user-cpns/user_modal.vue'
+import {ref} from "vue";
+import {Instance} from "element-plus";
+
+const userContentRef = ref<InstanceType<typeof user_content>>()
+const modelRef = ref<InstanceType<typeof UserModal>>()
+const handleQueryClick = (formData: any) => {
+  userContentRef.value?.fetchUserList(formData)
+}
+const resetQueryClick = (formData: any) => {
+  userContentRef.value?.fetchUserList({})
+}
+const handleNewClick=()=>{
+  modelRef.value?.setVisible()
+}
 </script>
 <template>
   <div class="user">用户管理
-    <user_search/>
-    <div class="content">
-      <div class="header">头部</div>
-      <div class="table">表格信息</div>
-      <div class="page">分页</div>
-    </div>
+    <user_search @queryClick="handleQueryClick" @resetClick="resetQueryClick"/>
+    <user_content ref="userContentRef" @new-click="handleNewClick"/>
+    <UserModal ref="modelRef"/>
   </div>
 </template>
 <style scoped>
