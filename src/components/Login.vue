@@ -15,7 +15,7 @@ import useLoginStore from "@/stores/login";
 import {useRouter} from 'vue-router';
 import {ArrowRight, Fold, User} from "@element-plus/icons-vue";
 import type IAccount from "@/stores/login";
-
+import usersStore from '@/stores/system/users';
 // 表单校验规则
 // 定义 RuleForm 类型
 interface RuleForm {
@@ -26,7 +26,7 @@ interface RuleForm {
 
 // 路由状态
 const router = useRouter();
-
+const roledepStore=usersStore()
 // 登陆表单数据
 const activeName = ref('account');
 const loginForm = reactive({
@@ -77,6 +77,10 @@ const submitForm = async (formEl: FormInstance | undefined) => {
           console.log("userInfo" + loginStore.userInfo)
           const getMenus = await loginStore.getRoleMenusById(Number(loginStore.userInfo.role.id))
           console.log(getRole,getMenus)
+          roledepStore.getRoles()
+          roledepStore.getDepartments()
+          console.log(roledepStore.roles)
+          console.log(roledepStore.departments)
           if (getRole && getMenus) {
             console.log("尝试跳转")
             const localRoutes:RouteRecordRaw[]=[]

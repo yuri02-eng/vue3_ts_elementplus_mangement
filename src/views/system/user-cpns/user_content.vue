@@ -103,7 +103,11 @@ const handleDeleteBtnClick = (id: number) => {
 const handleNewUserClick = () => {
   emits('newClick')
 }
-const emits=defineEmits(['newClick'])
+const handleEditBtnClick=(itemData:any)=> {
+console.log(itemData)
+  emits('editClick',itemData)
+}
+const emits=defineEmits(['newClick','editClick'])
 
 </script>
 
@@ -146,7 +150,7 @@ const emits=defineEmits(['newClick'])
           </el-table-column>
           <el-table-column label="操作" width="200" align="center">
             <template #default="{ row }">
-              <el-button type="primary" size="small" icon="Edit" text>编辑</el-button>
+              <el-button type="primary" size="small" icon="Edit" text @click="handleEditBtnClick(row)">编辑</el-button>
               <el-button type="danger" size="small" icon="Delete" text @click="handleDeleteBtnClick(row.id)">删除
               </el-button>
             </template>

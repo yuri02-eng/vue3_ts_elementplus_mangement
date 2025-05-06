@@ -16,11 +16,15 @@ const resetQueryClick = (formData: any) => {
 const handleNewClick=()=>{
   modelRef.value?.setVisible()
 }
+const handleEditClick=(itemData:any)=>{
+  console.log('父组件',itemData)
+  modelRef.value?.setVisible(true,itemData)
+}
 </script>
 <template>
   <div class="user">用户管理
     <user_search @queryClick="handleQueryClick" @resetClick="resetQueryClick"/>
-    <user_content ref="userContentRef" @new-click="handleNewClick"/>
+    <user_content ref="userContentRef" @new-click="handleNewClick" @edit-click="handleEditClick"/>
     <UserModal ref="modelRef"/>
   </div>
 </template>

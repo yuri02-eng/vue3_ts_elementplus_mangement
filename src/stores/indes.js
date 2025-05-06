@@ -2,6 +2,7 @@ import {createRouter, createWebHistory} from "vue-router"
 import Login from "@/components/Login.vue"
 import Applayout from "@/layouts/Applayout.vue";
 import useLoginStore from "@/stores/login.js";
+import usersStore from "@/stores/system/users.js";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -63,10 +64,13 @@ router.beforeEach((to, from, next) => {
 
         if (token) {
             const loginStore = useLoginStore();
+            const roledepStore = usersStore();
+            roledepStore.getRoles()
+            roledepStore.getDepartments()
             if (!loginStore.isRoutesLoaded) {
                 loginStore.loadLocalCacheAction(router);
                 loginStore.isRoutesLoaded = true;
-                next({ ...to, replace: true });
+                next({...to, replace: true});
             } else {
                 next();
             }

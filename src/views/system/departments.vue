@@ -1,9 +1,11 @@
-<script setup>
-
+<script setup lang="ts">
+import PageSearch from '@/views/system/page-cpns/page-search.vue'
+import PageContent from '@/views/system/page-cpns/page_content.vue'
 </script>
 
 <template>
-<h2>departments</h2>
+  <PageSearch/>
+  <PageContent/>
 </template>
 
 <style scoped>

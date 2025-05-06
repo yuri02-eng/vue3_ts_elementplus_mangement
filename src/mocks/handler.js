@@ -282,7 +282,7 @@ export const handlers = [
             {
                 id: 1,
                 name: '总裁办',
-                parentId: null,
+                parentId: 231,
                 leader: 'coderwhy',
                 createAt: '2021-01-02T10:03:09.000Z',
                 updateAt: '2021-01-05T08:25:46.000Z'
@@ -290,7 +290,7 @@ export const handlers = [
             {
                 id: 2,
                 name: '技术部',
-                parentId: null,
+                parentId: 123,
                 leader: 'techlead',
                 createAt: '2021-01-03T10:03:09.000Z',
                 updateAt: '2021-01-06T08:25:46.000Z'
@@ -298,7 +298,7 @@ export const handlers = [
             {
                 id: 3,
                 name: '市场部',
-                parentId: null,
+                parentId: 412,
                 leader: 'marketlead',
                 createAt: '2021-01-04T10:03:09.000Z',
                 updateAt: '2021-01-07T08:25:46.000Z'
