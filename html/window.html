@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>windows Exercises</title>
+</head>
+<body>
+<div>
+    <input type="text" id="username">
+    <input type="password" id="password">
+</div>
+<button onClick="handleclick()"> click</button>
+<script>
+    console.log(window.innerHeight, window.innerWidth);
+    const username1 = localStorage.getItem('username')
+    const password2 = localStorage.getItem('password')
+    if (username && password) {
+        username.value = username1
+        password.value = password2
+    }
+
+    function handleclick() {
+        localStorage.setItem("username", username.value)
+        localStorage.setItem("password", password.value)
+    }
+</script>
+</body>
+</html>

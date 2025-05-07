@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="checkbox" id="all" onclick="allSelect()"/>全选
+<hr>
+<ul class="shop">
+    <li><input type="checkbox" name="item" value="1"/>商品1</li>
+    <li><input type="checkbox" name="item" value="2"/>商品2</li>
+    <li><input type="checkbox" name="item" value="3"/>商品3</li>
+    <li><input type="checkbox" name="item" value="4"/>商品4</li>
+    <li><input type="checkbox" name="item" value="5"/>商品5</li>
+</ul>
+<script>
+    var all = document.querySelector("#all")
+    var items = document.querySelectorAll(".shop input[name='item']")
+
+    function allSelect() {
+        console.log(all.checked)
+        for (var i = 0; i < items.length; i++) {
+            items[i].checked = all.checked
+        }
+    }
+
+    var count = 0
+    for (var i = 0; i < items.length; i++) {
+        items[i].onclick = function () {
+            if (this.checked) {
+                count++
+            } else {
+                count--
+            }
+            console.log(count)
+            if (count === items.length) {
+                all.checked = true
+            } else {
+                all.checked = false
+            }
+        }
+    }
+</script>
+</body>
+</html>
