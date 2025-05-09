@@ -3,8 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+
+        }
+
+        .header {
+            display: flex;
+            width: 500px;
+        }
+
+        .header li {
+            flex: 1;
+            text-align: center;
+            height: 50px;
+            line-height: 50px;
+            border: 1px solid black;
+        }
+
+        .content ul {
+            position: relative;
+        }
+
+        .content li {
+            position: absolute;
+            width: 500px;
+            height: 300px;
+            left: 0;
+            top: 0;
+            background-color: red;
+            display: none;
+        }
+
+        .header .active {
+            background-color: red;
+        }
+
+        .content .active {
+            display: block;
+        }
+    </style>
 </head>
 <body>
-
+<ul class="header">
+    <li class="active">1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+</ul>
+<div class="content">
+    <ul>
+        <li class="active">111</li>
+        <li>2222</li>
+        <li>3333</li>
+        <li>4444</li>
+        <li>5555</li>
+        <li>6666</li>
+    </ul>
+</div>
+<script>
+    const headerItems = document.querySelectorAll('.header li');
+    const contentItems = document.querySelectorAll('.content li');
+    headerItems.forEach((item, index) => {
+        item.addEventListener('click', () => {
+            headerItems.forEach((item, index) => {
+                item.classList.remove('active')
+            });
+            contentItems.forEach((item,index) => {
+                item.classList.remove('active')
+            })
+            contentItems[index].classList.add('active')
+            item.classList.add('active');
+        })
+    })
+</script>
 </body>
 </html>
